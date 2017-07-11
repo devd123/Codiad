@@ -63,8 +63,10 @@
         //////////////////////////////////////////////////////////////////
 
         authenticate: function() {
+            console.log(this.loginForm.serialize());
             $.post(this.controller + '?action=authenticate', this.loginForm.serialize(), function(data) {
                 parsed = codiad.jsend.parse(data);
+                console.log(data);
                 if (parsed != 'error') {
                     // Session set, reload
                     window.location.reload();

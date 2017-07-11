@@ -44,10 +44,10 @@ class User
 
     public function Authenticate()
     {
-
         $pass = false;
         $this->EncryptPassword();
         $users = getJSON('users.php');
+        //print_r($users); die;
         foreach ($users as $user) {
             if ($user['username']==$this->username && $user['password']==$this->password) {
                 $pass = true;
@@ -65,6 +65,7 @@ class User
         } else {
             echo formatJSEND("error", "Incorrect Username or Password");
         }
+        exit;
     }
 
     //////////////////////////////////////////////////////////////////
