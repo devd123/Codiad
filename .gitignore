@@ -2,8 +2,6 @@
 *\#
 *.swp
 config.php
-data/
-workspace/
 plugins/*
 !plugins/README.md
 themes/*

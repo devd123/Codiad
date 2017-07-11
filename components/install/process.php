@@ -99,6 +99,7 @@ function cleanPath($path)
 
     $project_path = cleanPath($project_path);
     //echo "path is : ".$workspace; die;
+    ///var/www/html/Codiad
     if (!isAbsPath($project_path)) {
         $project_path = str_replace(" ", "_", preg_replace('/[^\w-\.]/', '', $project_path));
         mkdir($workspace . "/" . $project_path);
@@ -121,15 +122,17 @@ function cleanPath($path)
     $project_data = getJSON($projects);
     $project_data[] = array("name"=>$project_name,"path"=>$project_path);
 
-    saveJSON($projects, array($project_data));
+    saveJSON($projects, $project_data);
 
     //////////////////////////////////////////////////////////////////
     // Create Users file
     //////////////////////////////////////////////////////////////////
-
-    $user_data = getJSON($users);
-    $user_data[] = array("username"=>$username,"password"=>$password,"project"=>$project_path);
-
+    if (!file_exists($users) && !file_exists($projects) && !file_exists($active)) {
+        $user_data = array("username"=>$username,"password"=>$password,"project"=>$project_path);
+    }else{
+        $user_data = getJSON($users);
+        $user_data[] = array("username"=>$username,"password"=>$password,"project"=>$project_path);
+    }
     saveJSON($users, $user_data);
 
     //////////////////////////////////////////////////////////////////
